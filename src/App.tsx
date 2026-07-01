@@ -57,7 +57,7 @@ const App = () => {
     const state = urlParams.get('state');
     if (window.location.pathname.includes('/etsy/callback') && code && state) {
       setLoading(true);
-      fetch(\`https://api.podsy.pro/etsy/callback\`, {
+      fetch(`https://api.podsy.pro/etsy/callback`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code, state })
