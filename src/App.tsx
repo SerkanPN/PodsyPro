@@ -55,20 +55,26 @@ const App = () => {
     const code = urlParams.get('code');
     const state = urlParams.get('state');
     if (window.location.pathname.includes('/etsy/callback') && code && state) {
-      if (!token) return; // Wait for token to load
       setLoading(true);
-      fetch(`https://api.podsy.pro/etsy/callback?code=${code}&state=${state}`, {
+      fetch(\`https://api.podsy.pro/etsy/callback\`, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, state })
       })
       .then(res => res.json())
       .then(data => {
-        alert("Etsy mağazanız başarıyla bağlandı!");
-        window.location.href = "/?view=profile";
+        if (data.access_token) {
+          localStorage.setItem('podsy_token', data.access_token);
+          alert("Etsy başarıyla bağlandı ve giriş yapıldı!");
+          window.location.href = "/?view=profile";
+        } else {
+          alert(data.detail || "Bağlantı başarısız oldu.");
+          window.location.href = "/";
+        }
       })
       .catch(err => {
         alert("Etsy bağlantısı sırasında hata oluştu.");
-        window.location.href = "/?view=profile";
+        window.location.href = "/";
       });
       return;
     }
