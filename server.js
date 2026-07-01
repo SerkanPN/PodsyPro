@@ -401,9 +401,8 @@ app.post("/etsy/callback", async (req, res) => {
     let etsyShopId = null;
     let userId = null;
     let etsyUsername = null;
-    const authString = `${ETSY_API_KEY}:${ETSY_SHARED_SECRET}`;
     const meResponse = await fetch("https://api.etsy.com/v3/application/users/me", {
-      headers: { "x-api-key": authString, "Authorization": `Bearer ${tokenData.access_token}` }
+      headers: { "x-api-key": ETSY_API_KEY, "Authorization": `Bearer ${tokenData.access_token}` }
     });
     
     if (meResponse.ok) {
@@ -418,7 +417,7 @@ app.post("/etsy/callback", async (req, res) => {
         userId = users[0].id;
       }
       const shopResponse = await fetch(`https://api.etsy.com/v3/application/users/${meData.user_id}/shops`, {
-        headers: { "x-api-key": authString, "Authorization": `Bearer ${tokenData.access_token}` }
+        headers: { "x-api-key": ETSY_API_KEY, "Authorization": `Bearer ${tokenData.access_token}` }
       });
       
       if (shopResponse.ok) {
