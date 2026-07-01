@@ -22,7 +22,7 @@ const TesterLoginPage: React.FC = () => {
         await login(username, password);
       }
     } catch (err: any) {
-      setError(err.message || 'Bir hata oluştu.');
+      setError(err.message || 'An error occurred.');
     } finally {
       setLoading(false);
     }

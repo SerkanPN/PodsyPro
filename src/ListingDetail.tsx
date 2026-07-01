@@ -210,7 +210,7 @@ const ListingDetail = ({ listingId, onShopClick, onTagClick, onBack }: ListingDe
   };
 
   if (loading) return <div className="text-white text-center mt-20 font-black animate-pulse">VERİ YÜKLENİYOR...</div>;
-  if (error) return <div className="text-red-500 text-center mt-20">Hata: {error}</div>;
+  if (error) return <div className="text-red-500 text-center mt-20">Error: {error}</div>;
   if (!data) return <div className="text-zinc-500 text-center mt-20">Veri bulunamadı.</div>;
 
   return (
@@ -248,7 +248,7 @@ const ListingDetail = ({ listingId, onShopClick, onTagClick, onBack }: ListingDe
             <span>{listing.is_tracked ? 'UNFOLLOW' : 'FOLLOW'}</span>
           </button>
           <a href={listing.url} target="_blank" rel="noreferrer" className="flex-1 md:flex-none justify-center px-6 py-3 bg-sky-600 rounded-xl hover:bg-sky-500 transition font-black text-xs flex items-center text-white tracking-wide shadow-lg shadow-sky-900/20">
-            ETSY'DE GÖR ↗
+            VIEW ON ETSY ↗
           </a>
         </div>
       </div>

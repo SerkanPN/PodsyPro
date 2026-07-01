@@ -35,8 +35,8 @@ const ComparePage: React.FC<ComparePageProps> = ({ onListingClick, onShopClick }
       const json1 = await res1.json();
       const json2 = await res2.json();
 
-      if (json1.ERROR) throw new Error(`Hedef 1 Hata: ${json1.ERROR}`);
-      if (json2.ERROR) throw new Error(`Hedef 2 Hata: ${json2.ERROR}`);
+      if (json1.ERROR) throw new Error(`Target 1 Error: ${json1.ERROR}`);
+      if (json2.ERROR) throw new Error(`Target 2 Error: ${json2.ERROR}`);
 
       setData1(json1);
       setData2(json2);

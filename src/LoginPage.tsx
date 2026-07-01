@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
         await login(username, password);
       }
     } catch (err: any) {
-      setError(err.message || 'Bir hata oluştu.');
+      setError(err.message || 'An error occurred.');
     } finally {
       setLoading(false);
     }
@@ -51,14 +51,14 @@ const LoginPage: React.FC = () => {
               if (data.auth_url) window.location.href = data.auth_url;
               else throw new Error("URL alınamadı");
             } catch (err) {
-              setError("Etsy bağlantısı kurulamadı. Lütfen tekrar deneyin.");
+              setError("Could not establish Etsy connection. Please try again.");
               setLoading(false);
             }
           }}
           disabled={loading}
           className="w-full bg-[#F16521] text-white font-black py-4 rounded-xl hover:bg-[#D55315] hover:scale-105 active:scale-95 transition-all uppercase tracking-widest text-sm disabled:opacity-50 flex items-center justify-center gap-3 shadow-lg shadow-orange-900/20"
         >
-          {loading ? 'Yönlendiriliyor...' : 'Login with Etsy'}
+          {loading ? 'Redirecting...' : 'Login with Etsy'}
         </button>
       </div>
     </div>

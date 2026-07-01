@@ -80,7 +80,7 @@ const SearchPage = ({ keyword, onListingClick, onShopClick }: SearchPageProps) =
   };
 
   if (loading) return <div className="flex flex-col items-center justify-center h-[50vh] space-y-4 animate-pulse"><div className="w-16 h-16 border-4 border-sky-500/30 border-t-sky-500 rounded-full animate-spin"></div><p className="text-sky-500 font-mono text-xs uppercase tracking-[0.3em]">Searching...</p></div>;
-  if (error) return <div className="text-red-500 text-center mt-20">Hata: {error}</div>;
+  if (error) return <div className="text-red-500 text-center mt-20">Error: {error}</div>;
   if (!searchData) return <div className="text-zinc-500 text-center mt-20">No search results found.</div>;
 
   return (

@@ -109,7 +109,7 @@ const UploadProductPage: React.FC<UploadProductPageProps> = ({ shopId, onBack })
     }
     
     if (!shopId || shopId === "undefined" || shopId === "null") {
-        alert("Hata: Mağazanızla bağlantı kurulamadı. Lütfen mağazayı silip yeniden bağlayın.");
+        alert("Error: Could not connect to your shop. Please remove the shop and reconnect.");
         return;
     }
 
@@ -144,11 +144,11 @@ const UploadProductPage: React.FC<UploadProductPageProps> = ({ shopId, onBack })
             onBack();
         } else {
             const err = await res.text();
-            alert("HATA: " + err);
+            alert("ERROR: " + err);
         }
     } catch (err) {
         console.error(err);
-        alert("Sistemsel bir hata oluştu.");
+        alert("A system error occurred.");
     } finally {
         setIsSubmitting(false);
     }

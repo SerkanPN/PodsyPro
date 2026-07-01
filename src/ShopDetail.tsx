@@ -161,7 +161,7 @@ const ShopDetail = ({ shopId, onBack, onListingClick, onUploadClick }: ShopDetai
   }, [toggleFollow]);
 
   if (loading) return <div className="text-white text-center mt-20 font-black animate-pulse">MAĞAZA VERİSİ YÜKLENİYOR...</div>;
-  if (error) return <div className="text-red-500 text-center mt-20">Hata: {error}</div>;
+  if (error) return <div className="text-red-500 text-center mt-20">Error: {error}</div>;
   if (!data) return <div className="text-zinc-500 text-center mt-20">Veri bulunamadı.</div>;
 
   return (

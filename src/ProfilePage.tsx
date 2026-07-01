@@ -40,7 +40,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
         window.location.href = data.auth_url; // Redirect to Etsy OAuth
       }
     } catch (err) {
-      alert("Etsy'ye bağlanırken hata oluştu.");
+      alert("Error connecting to Etsy.");
     }
   };
   const handleDisconnectShop = async (connectionId: number) => {
@@ -53,10 +53,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
       if (res.ok) {
         fetchShops();
       } else {
-        alert("Bağlantı kesilirken bir hata oluştu.");
+        alert("Error disconnecting.");
       }
     } catch (err) {
-      alert("Hata: " + err);
+      alert("Error: " + err);
     }
   };
 
@@ -95,7 +95,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
         <div className="text-zinc-500 font-mono">Loading...</div>
       ) : shops.length === 0 ? (
         <div className="bg-[#111] p-12 rounded-3xl border border-[#222] border-dashed text-center">
-          <p className="text-zinc-500 font-bold mb-4">Henüz sisteme bağlı bir Etsy mağazanız bulunmuyor.</p>
+          <p className="text-zinc-500 font-bold mb-4">You do not have a connected Etsy shop yet.</p>
           <button 
             onClick={handleConnectShop}
             className="bg-zinc-800 text-white font-bold px-6 py-2 rounded-lg hover:bg-zinc-700 transition"
