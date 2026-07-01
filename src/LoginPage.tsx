@@ -37,7 +37,7 @@ const LoginPage: React.FC = () => {
         
         <div className="mb-10">
           <h1 className="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-rose-400 mb-2">PodsyPro</h1>
-          <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Akıllı Mağaza Yönetimi</p>
+          <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Smart Shop Management</p>
         </div>
 
         {error && <div className="text-rose-500 text-sm font-bold bg-rose-500/10 p-3 rounded-xl border border-rose-500/20 mb-6">{error}</div>}
@@ -49,7 +49,7 @@ const LoginPage: React.FC = () => {
               const res = await fetch('https://api.podsy.pro/etsy/connect');
               const data = await res.json();
               if (data.auth_url) window.location.href = data.auth_url;
-              else throw new Error("URL alınamadı");
+              else throw new Error("Could not retrieve URL");
             } catch (err) {
               setError("Could not establish Etsy connection. Please try again.");
               setLoading(false);

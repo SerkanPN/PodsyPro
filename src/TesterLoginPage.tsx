@@ -36,7 +36,7 @@ const TesterLoginPage: React.FC = () => {
         
         <div className="mb-10">
           <h1 className="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-indigo-400 mb-2">PodsyPro</h1>
-          <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Yönetici Girişi (Tester)</p>
+          <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Admin Login (Tester)</p>
         </div>
 
         {error && <div className="text-rose-500 text-sm font-bold bg-rose-500/10 p-3 rounded-xl border border-rose-500/20 mb-6">{error}</div>}
@@ -68,18 +68,18 @@ const TesterLoginPage: React.FC = () => {
             disabled={loading}
             className="w-full bg-sky-500 text-white font-black py-4 rounded-xl hover:bg-sky-400 hover:scale-105 active:scale-95 transition-all uppercase tracking-widest text-sm disabled:opacity-50 mt-4"
           >
-            {loading ? 'İşleniyor...' : (isLoginMode ? 'Login' : 'Kayıt Ol')}
+            {loading ? 'Processing...' : (isLoginMode ? 'Login' : 'Sign Up')}
           </button>
         </form>
 
         <div className="mt-6 text-sm text-zinc-500">
-          {isLoginMode ? "Hesabınız yok mu? " : "Zaten hesabınız var mı? "}
+          {isLoginMode ? "Don't have an account? " : "Already have an account? "}
           <button 
             type="button" 
             onClick={() => setIsLoginMode(!isLoginMode)}
             className="text-sky-400 font-bold hover:underline cursor-pointer"
           >
-            {isLoginMode ? 'Kayıt Ol' : 'Login'}
+            {isLoginMode ? 'Sign Up' : 'Login'}
           </button>
         </div>
       </div>
