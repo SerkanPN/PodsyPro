@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+requests
+openpyxl
+pyjwt
+bcrypt==3.2.2
+python-multipart
+a2wsgi
+httpx
+apscheduler
+python-dotenv

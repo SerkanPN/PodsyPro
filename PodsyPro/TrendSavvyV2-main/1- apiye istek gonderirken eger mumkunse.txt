@@ -1,0 +1,4 @@
+1- apiye istek gonderirken eger mumkunse en cok vews alan, fav alan, gibi kriterlerle istek gonderilecek. 
+2- hrhangi bir keyword ile arama yapildiginda ve sonuclar alindiginda, o sonuclarin hepsi otomatik olarak database eklenecek. onlar icin tek tek sorgu yapilmasi gerekmeyecek.
+3- belli kriterlere gore, ki bunu kullanici belirleyecek arayuzden, seilen listing idler otomatik  olarak gunuk takibe alinacak, bu listingler hergun belirli saatlerde yeni verilerle beslenecek. 
+4- bir magaza icin sorgu yapildiginda o magazada bulunan tum urunlerin listing idleri cekilecek ve otomatikman o listing idler ile de veriler cekilip veriabanina eklenecek
