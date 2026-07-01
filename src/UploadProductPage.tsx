@@ -198,12 +198,12 @@ const UploadProductPage: React.FC<UploadProductPageProps> = ({ shopId, onBack })
             <label className="block text-sm font-bold text-zinc-300 mb-2">Selected category *</label>
             <div className="flex items-center justify-between bg-black/40 border border-white/10 rounded-xl px-4 py-3">
               <div>
-                <p className="text-white font-bold">{formData.taxonomy_id ? `Kategori ID: ${formData.taxonomy_id}` : 'Kategori Seçilmedi'}</p>
-                <p className="text-xs text-zinc-500">Lütfen geçerli bir Taxonomy ID girin veya seçin.</p>
+                <p className="text-white font-bold">{formData.taxonomy_id ? `Category ID: ${formData.taxonomy_id}` : 'No Category Selected'}</p>
+                <p className="text-xs text-zinc-500">Please enter or select a valid Taxonomy ID.</p>
               </div>
-              <button onClick={handleCategorySelect} className="px-4 py-1.5 border border-white/20 rounded-full text-xs font-bold hover:bg-white/5 transition">Kategori Seç</button>
+              <button onClick={handleCategorySelect} className="px-4 py-1.5 border border-white/20 rounded-full text-xs font-bold hover:bg-white/5 transition">Select Category</button>
             </div>
-            <input type="number" name="taxonomy_id" value={formData.taxonomy_id} onChange={handleChange} className="w-full mt-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-500 transition" placeholder="Etsy Taxonomy ID (Örn: 1)" required />
+            <input type="number" name="taxonomy_id" value={formData.taxonomy_id} onChange={handleChange} className="w-full mt-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-500 transition" placeholder="Etsy Taxonomy ID (e.g., 1)" required />
           </div>
         </Section>
       </div>
@@ -214,7 +214,7 @@ const UploadProductPage: React.FC<UploadProductPageProps> = ({ shopId, onBack })
           <div>
             <label className="block text-sm font-bold text-zinc-300 mb-2">Title *</label>
             <p className="text-xs text-zinc-500 mb-2">Make sure your title is easy to understand and clearly describes what you're selling.</p>
-            <input type="text" name="title" value={formData.title} onChange={handleChange} className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-500 transition" placeholder="Ürün başlığını buraya girin..." maxLength={140} required />
+            <input type="text" name="title" value={formData.title} onChange={handleChange} className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-sky-500 transition" placeholder="Enter product title here..." maxLength={140} required />
             <p className="text-right text-[10px] text-zinc-600 mt-1">{formData.title.length} / 140</p>
           </div>
           <div>
@@ -260,7 +260,7 @@ const UploadProductPage: React.FC<UploadProductPageProps> = ({ shopId, onBack })
               {shippingProfiles.map(p => (
                 <option key={p.shipping_profile_id} value={p.shipping_profile_id.toString()}>{p.title}</option>
               ))}
-              {shippingProfiles.length === 0 && <option value="">Profiller Yükleniyor...</option>}
+              {shippingProfiles.length === 0 && <option value="">Profiles Loading...</option>}
             </select>
           </div>
         </Section>
@@ -272,7 +272,7 @@ const UploadProductPage: React.FC<UploadProductPageProps> = ({ shopId, onBack })
         <div className="flex gap-4 mr-4">
           <button className="px-6 py-2.5 bg-zinc-800 text-white font-bold rounded-full hover:bg-zinc-700 transition">Preview</button>
           <button onClick={handlePublish} disabled={isSubmitting} className="px-6 py-2.5 bg-black text-white font-bold rounded-full hover:bg-zinc-800 transition shadow-xl border border-white/20 disabled:opacity-50">
-            {isSubmitting ? 'Kaydediliyor...' : 'TASLAK OLARAK YÜKLE'}
+            {isSubmitting ? 'Saving...' : 'UPLOAD AS DRAFT'}
           </button>
         </div>
       </div>

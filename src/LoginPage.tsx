@@ -36,7 +36,7 @@ const LoginPage: React.FC = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-orange-500/10 blur-[50px] -z-10 rounded-full"></div>
         
         <div className="mb-10">
-          <h1 className="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-rose-400 mb-2">TrendSavvy</h1>
+          <h1 className="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-rose-400 mb-2">PodsyPro</h1>
           <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Akıllı Mağaza Yönetimi</p>
         </div>
 
@@ -58,7 +58,7 @@ const LoginPage: React.FC = () => {
           disabled={loading}
           className="w-full bg-[#F16521] text-white font-black py-4 rounded-xl hover:bg-[#D55315] hover:scale-105 active:scale-95 transition-all uppercase tracking-widest text-sm disabled:opacity-50 flex items-center justify-center gap-3 shadow-lg shadow-orange-900/20"
         >
-          {loading ? 'Yönlendiriliyor...' : 'Etsy ile Giriş Yap'}
+          {loading ? 'Yönlendiriliyor...' : 'Login with Etsy'}
         </button>
       </div>
     </div>

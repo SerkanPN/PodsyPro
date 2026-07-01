@@ -66,15 +66,15 @@ const App = () => {
       .then(data => {
         if (data.access_token) {
           localStorage.setItem('podsy_token', data.access_token);
-          alert("Etsy başarıyla bağlandı ve giriş yapıldı!");
+          alert("Etsy successfully connected and logged in!");
           window.location.href = "/?view=profile";
         } else {
-          alert(data.detail || "Bağlantı başarısız oldu.");
+          alert(data.detail || "Connection failed.");
           window.location.href = "/";
         }
       })
       .catch(err => {
-        alert("Etsy bağlantısı sırasında hata oluştu.");
+        alert("Error occurred during Etsy connection.");
         window.location.href = "/";
       });
       return;
@@ -124,7 +124,7 @@ const App = () => {
   }, [currentView.view, fetchFavorites, fetchHistory]);
 
   // handleSearch fonksiyonu büyük ölçüde basitleşecek veya tamamen kalkacak.
-  // Arama kutusuna yazılanı alıp sadece yönlendirme yapacak.
+  // Takes search input and routes it.
   const handleSearch = async (query: string) => {
     if (!query) return;
 
@@ -152,11 +152,11 @@ const App = () => {
         return;
       }
 
-      // Eğer hiçbiri değilse, bu bir keyword aramasıdır.
+      // If none, it's a keyword search.
       navigateTo({ view: 'search', keyword: cleanQuery });
 
     } catch (e: any) {
-      setErrorData("Bir hata oluştu: " + e.message);
+      setErrorData("An error occurred: " + e.message);
     } finally {
       setLoading(false);
     }
@@ -191,8 +191,8 @@ const App = () => {
     setSyncing(true);
     try {
       await fetch(`https://api.podsy.pro/sync-all`, { method: 'POST' });
-      alert("✅ Arka planda veri eşitleme başlatıldı.");
-    } catch (e) { alert("Eşitleme başlatılamadı."); }
+      alert("✅ Background data synchronization started.");
+    } catch (e) { alert("Synchronization could not be started."); }
     setTimeout(() => setSyncing(false), 2000);
   };
 
@@ -212,7 +212,7 @@ const App = () => {
       const data = await res.json();
       alert(data.message);
     } catch (err) {
-      alert("Yükleme hatası!");
+      alert("Upload error!");
     } finally {
       setSyncing(false);
     }
@@ -225,10 +225,10 @@ const App = () => {
         return (
           <div className="max-w-4xl mx-auto mt-20 p-10 border-2 border-dashed border-zinc-800 rounded-3xl text-center">
             <h2 className="text-2xl font-black text-white mb-4 uppercase tracking-tighter">Etsy Keyword Import</h2>
-            <p className="text-zinc-500 mb-8 text-sm">Etsy Search Analytics üzerinden indirdiğin Excel dosyasını buraya yükle.<br/>Tüm kelimeler otomatik olarak taranacak ve veritabanına eklenecektir.</p>
+            <p className="text-zinc-500 mb-8 text-sm">Upload the Excel file downloaded from Etsy Search Analytics here.<br/>All keywords will be automatically scanned and added to the database.</p>
             <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} className="hidden" id="excel-upload" />
             <label htmlFor="excel-upload" className="cursor-pointer bg-sky-500 hover:bg-sky-400 text-white px-8 py-4 rounded-2xl font-black uppercase transition-all inline-block">
-              {syncing ? 'İŞLENİYOR...' : 'EXCEL DOSYASI SEÇ'}
+              {syncing ? 'PROCESSING...' : 'SELECT EXCEL FILE'}
             </label>
           </div>
         );
@@ -285,7 +285,7 @@ const App = () => {
   };
 
   if (currentUser === undefined) {
-    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-white font-mono">Yükleniyor...</div>;
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-white font-mono">Loading...</div>;
   }
 
   if (currentUser === null) {
@@ -311,7 +311,7 @@ const App = () => {
             </div>
 
             <div onClick={() => navigateTo({ view: 'profile' })} className={`px-4 py-3 rounded-lg font-bold text-xs cursor-pointer transition-all ${currentView.view === 'profile' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-lg shadow-emerald-900/20' : 'text-zinc-500 hover:text-zinc-300 hover:bg-[#1a1a1a]'}`}>
-              PROFIL & MAĞAZALAR
+              PROFILE & SHOPS
             </div>
 
           <div className="space-y-2">
@@ -376,7 +376,7 @@ const App = () => {
           <div className="pl-4 text-zinc-500"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
           <input 
             className="flex-1 bg-transparent border-none outline-none text-zinc-100 px-2 py-3 text-sm placeholder-zinc-600 font-medium"
-            placeholder="Derin analiz için Keyword, Link, Listing ID veya Shop ID girin..."
+            placeholder="Enter Keyword, Link, Listing ID, or Shop ID for deep analysis..."
             value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSearch(searchQuery)}
           />
           <button onClick={() => handleSearch(searchQuery)} className="bg-zinc-100 text-zinc-900 border-none px-8 py-3 rounded-xl font-black text-xs cursor-pointer hover:bg-sky-500 hover:text-white hover:scale-105 active:scale-95 transition-all shadow-lg">{loading ? "SCANNING..." : "HACK"}</button>
@@ -386,7 +386,7 @@ const App = () => {
           <div className="max-w-4xl mx-auto mb-8 bg-rose-950/30 border border-rose-900/50 rounded-2xl p-6 shadow-2xl animate-[fadeIn_0.3s]">
             <div className="flex items-center gap-3 mb-4 border-b border-rose-900/50 pb-4">
               <div className="p-2 bg-rose-900/50 rounded-lg text-rose-500"><svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
-              <div><h3 className="font-black text-rose-500 tracking-tighter text-xl uppercase">Target Hack Failed</h3><p className="text-xs text-rose-400/70 font-mono">Etsy API isteği reddetti veya veri bulunamadı.</p></div>
+              <div><h3 className="font-black text-rose-500 tracking-tighter text-xl uppercase">Target Hack Failed</h3><p className="text-xs text-rose-400/70 font-mono">Etsy API rejected the request or data not found.</p></div>
             </div>
             <pre className="text-xs text-rose-300 font-mono whitespace-pre-wrap overflow-auto max-h-[300px] custom-scrollbar bg-black/50 p-4 rounded-xl border border-rose-900/30">{errorData}</pre>
           </div>

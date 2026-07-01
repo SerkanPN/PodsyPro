@@ -35,7 +35,7 @@ const TesterLoginPage: React.FC = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-sky-500/10 blur-[50px] -z-10 rounded-full"></div>
         
         <div className="mb-10">
-          <h1 className="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-indigo-400 mb-2">TrendSavvy</h1>
+          <h1 className="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-indigo-400 mb-2">PodsyPro</h1>
           <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">Yönetici Girişi (Tester)</p>
         </div>
 
@@ -45,7 +45,7 @@ const TesterLoginPage: React.FC = () => {
           <div>
             <input 
               type="text" 
-              placeholder="Kullanıcı Adı" 
+              placeholder="Username" 
               className="w-full bg-[#1a1a1a] border border-[#333] px-4 py-3 rounded-xl text-zinc-100 placeholder-zinc-600 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -55,7 +55,7 @@ const TesterLoginPage: React.FC = () => {
           <div>
             <input 
               type="password" 
-              placeholder="Şifre" 
+              placeholder="Password" 
               className="w-full bg-[#1a1a1a] border border-[#333] px-4 py-3 rounded-xl text-zinc-100 placeholder-zinc-600 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -68,7 +68,7 @@ const TesterLoginPage: React.FC = () => {
             disabled={loading}
             className="w-full bg-sky-500 text-white font-black py-4 rounded-xl hover:bg-sky-400 hover:scale-105 active:scale-95 transition-all uppercase tracking-widest text-sm disabled:opacity-50 mt-4"
           >
-            {loading ? 'İşleniyor...' : (isLoginMode ? 'Giriş Yap' : 'Kayıt Ol')}
+            {loading ? 'İşleniyor...' : (isLoginMode ? 'Login' : 'Kayıt Ol')}
           </button>
         </form>
 
@@ -79,7 +79,7 @@ const TesterLoginPage: React.FC = () => {
             onClick={() => setIsLoginMode(!isLoginMode)}
             className="text-sky-400 font-bold hover:underline cursor-pointer"
           >
-            {isLoginMode ? 'Kayıt Ol' : 'Giriş Yap'}
+            {isLoginMode ? 'Kayıt Ol' : 'Login'}
           </button>
         </div>
       </div>

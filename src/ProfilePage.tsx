@@ -65,7 +65,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
       <div className="flex justify-between items-end mb-8">
         <div>
           <h2 className="text-3xl font-black text-white uppercase tracking-tighter">Profil & Mağazalarım</h2>
-          <p className="text-zinc-500 font-bold mt-2">TrendSavvy hesabınız ve bağlı Etsy mağazalarınız</p>
+          <p className="text-zinc-500 font-bold mt-2">PodsyPro hesabınız ve bağlı Etsy mağazalarınız</p>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
       </div>
 
       {loading ? (
-        <div className="text-zinc-500 font-mono">Yükleniyor...</div>
+        <div className="text-zinc-500 font-mono">Loading...</div>
       ) : shops.length === 0 ? (
         <div className="bg-[#111] p-12 rounded-3xl border border-[#222] border-dashed text-center">
           <p className="text-zinc-500 font-bold mb-4">Henüz sisteme bağlı bir Etsy mağazanız bulunmuyor.</p>

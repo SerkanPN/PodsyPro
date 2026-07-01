@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
-const SECRET_KEY = process.env.SECRET_KEY || "TRENDSAVVY_SUPER_SECRET_KEY_CHANGE_ME";
+const SECRET_KEY = process.env.SECRET_KEY || "PODSYPRO_SUPER_SECRET_KEY_CHANGE_ME";
 const ETSY_API_KEY = process.env.ETSY_API_KEY || "34axrr0o1tzjvfcdn2mexpp4";
 const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "f5njckm23y";
 const REDIRECT_URI = process.env.REDIRECT_URI || "https://podsy.pro/etsy/callback";
@@ -232,7 +232,7 @@ const checkAnalysisLimit = (req, res, next) => {
   if (user.subscription_end_date) {
     const endDate = new Date(user.subscription_end_date.split('.')[0] + 'Z');
     if (new Date() > endDate) {
-      return res.status(403).json({ detail: "Abonelik süreniz dolmuştur." });
+      return res.status(403).json({ detail: "Your subscription has expired." });
     }
   }
   
@@ -246,7 +246,7 @@ const checkAnalysisLimit = (req, res, next) => {
   }
   
   if (usage >= limit) {
-    return res.status(403).json({ detail: "Günlük analiz limitinize ulaştınız." });
+    return res.status(403).json({ detail: "You have reached your daily analysis limit." });
   }
   
   db.prepare("UPDATE users SET daily_usage = daily_usage + 1 WHERE id = ?").run(user.id);
@@ -645,7 +645,7 @@ app.post("/toggle-follow/:target_type/:target_id", authenticateToken, async (req
   if (target_type === "listing") { table = "user_tracked_listings"; id_col = "listing_id"; }
   else if (target_type === "shop") { table = "user_tracked_shops"; id_col = "shop_id"; }
   else if (target_type === "keyword") { table = "user_tracked_keywords"; id_col = "keyword"; }
-  else return res.json({ status: "error", message: "Geçersiz target türü" });
+  else return res.json({ status: "error", message: "Invalid target type" });
 
   const row = db.prepare(`SELECT * FROM ${table} WHERE user_id = ? AND ${id_col} = ?`).get(req.user.id, target_id);
   
