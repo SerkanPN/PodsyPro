@@ -15,8 +15,8 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 const SECRET_KEY = process.env.SECRET_KEY || "PODSYPRO_SUPER_SECRET_KEY_CHANGE_ME";
-const ETSY_API_KEY = process.env.ETSY_API_KEY || "34axrr0o1tzjvfcdn2mexpp4";
-const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "f5njckm23y";
+const ETSY_API_KEY = (process.env.ETSY_API_KEY || "34axrr0o1tzjvfcdn2mexpp4").trim();
+const ETSY_SHARED_SECRET = (process.env.ETSY_SHARED_SECRET || "f5njekm23y").trim();
 const REDIRECT_URI = process.env.REDIRECT_URI || "https://podsy.pro/etsy/callback";
 const BASE_URL = "https://openapi.etsy.com/v3/application";
 const mysqlDate = (d = new Date()) => d.toISOString().slice(0, 19).replace("T", " ");
@@ -401,8 +401,9 @@ app.post("/etsy/callback", async (req, res) => {
     let etsyShopId = null;
     let userId = null;
     let etsyUsername = null;
+    const authString = `${ETSY_API_KEY}:${ETSY_SHARED_SECRET}`;
     const meResponse = await fetch("https://api.etsy.com/v3/application/users/me", {
-      headers: { "x-api-key": ETSY_API_KEY, "Authorization": `Bearer ${tokenData.access_token}` }
+      headers: { "x-api-key": authString, "Authorization": `Bearer ${tokenData.access_token}` }
     });
     
     if (meResponse.ok) {
@@ -417,7 +418,7 @@ app.post("/etsy/callback", async (req, res) => {
         userId = users[0].id;
       }
       const shopResponse = await fetch(`https://api.etsy.com/v3/application/users/${meData.user_id}/shops`, {
-        headers: { "x-api-key": ETSY_API_KEY, "Authorization": `Bearer ${tokenData.access_token}` }
+        headers: { "x-api-key": authString, "Authorization": `Bearer ${tokenData.access_token}` }
       });
       
       if (shopResponse.ok) {
