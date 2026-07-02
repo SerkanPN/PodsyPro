@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 8000;
+const PORT = process.env.PORT || 3000;
 const SECRET_KEY = process.env.SECRET_KEY || "PODSYPRO_SUPER_SECRET_KEY_CHANGE_ME";
 const ETSY_API_KEY = "34axrr0o1tzjvfcdn2mexpp4";
 const ETSY_SHARED_SECRET = "f5njekm23y";
@@ -822,6 +822,6 @@ app.delete("/api/me/shops/:connection_id", authenticateToken, async (req, res) =
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
-app.listen(PORT, "127.0.0.1", () => {
-  console.log(`Server is running on port ${PORT} at 127.0.0.1`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
