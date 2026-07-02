@@ -283,7 +283,8 @@ const checkAnalysisLimit = async (req, res, next) => {
   
   const today = mysqlDate().split(' ')[0];
   let usage = user.daily_usage || 0;
-  const limit = user.daily_limit || 50;
+  const limits = { 'Free': 5, 'Pro': 500, 'Ultra': 999999, 'SaaS Pro Tier': 999999 };
+  const limit = limits[user.plan] || user.daily_limit || 50;
   
   if (user.last_reset_date !== today) {
     usage = 0;
