@@ -21,14 +21,16 @@ const SearchPage = ({ keyword, onListingClick, onShopClick }: SearchPageProps) =
   const [error, setError] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<string>('default');
 
-  const { toggleFollow, HeartIcon } = useAppContext();
+  const { toggleFollow, HeartIcon, token } = useAppContext();
 
   const fetchData = useCallback(async (query: string, isLoadMore = false, forceRefresh = false, offset = 0) => {
     isLoadMore ? setLoadingMore(true) : setLoading(true);
     setError(null);
 
     try {
-      const res = await fetch(`https://api.podsy.pro/search/${encodeURIComponent(query)}?offset=${offset}&force_refresh=${forceRefresh}`);
+      const res = await fetch(`https://api.podsy.pro/search/${encodeURIComponent(query)}?offset=${offset}&force_refresh=${forceRefresh}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       const json = await res.json();
 
       if (json.ERROR) {

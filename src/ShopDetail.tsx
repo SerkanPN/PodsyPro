@@ -45,7 +45,7 @@ const ShopDetail = ({ shopId, onBack, onListingClick, onUploadClick }: ShopDetai
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { toggleFollow, HeartIcon } = useAppContext();
+  const { toggleFollow, HeartIcon, token } = useAppContext();
 
   const fetchData = useCallback(async (id: string, forceRefresh = false) => {
     if (!id || id === 'null') {
@@ -56,7 +56,9 @@ const ShopDetail = ({ shopId, onBack, onListingClick, onUploadClick }: ShopDetai
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`https://api.podsy.pro/shop/${id}?force_refresh=${forceRefresh}`);
+      const res = await fetch(`https://api.podsy.pro/shop/${id}?force_refresh=${forceRefresh}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       if (!res.ok) throw new Error("Mağaza verisi alınamadı");
       const json = await res.json();
       if(json.ERROR) throw new Error(typeof json.ERROR === 'string' ? json.ERROR : JSON.stringify(json.ERROR));

@@ -190,7 +190,10 @@ const App = () => {
   const handleSyncAll = async () => {
     setSyncing(true);
     try {
-      await fetch(`https://api.podsy.pro/sync-all`, { method: 'POST' });
+      await fetch(`https://api.podsy.pro/sync-all`, { 
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       alert("✅ Background data synchronization started.");
     } catch (e) { alert("Synchronization could not be started."); }
     setTimeout(() => setSyncing(false), 2000);
@@ -207,6 +210,7 @@ const App = () => {
     try {
       const res = await fetch('https://api.podsy.pro/import-keywords', {
         method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
         body: formData,
       });
       const data = await res.json();

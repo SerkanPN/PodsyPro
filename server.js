@@ -735,6 +735,92 @@ app.post("/toggle-follow/:target_type/:target_id", authenticateToken, async (req
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
+
+app.get("/favorites/:target_type", authenticateToken, async (req, res) => {
+  try {
+    const { target_type } = req.params;
+    let results = [];
+    if (target_type === "listings") {
+      const [rows] = await db.execute(`
+        SELECT l.listing_id, l.title, l.price, l.currency_code, l.image_url as image, s.shop_name 
+        FROM user_tracked_listings utl 
+        JOIN listings l ON utl.listing_id = l.listing_id 
+        LEFT JOIN shops s ON l.shop_id = s.shop_id 
+        WHERE utl.user_id = ?
+      `, [req.user.id]);
+      results = rows;
+    } else if (target_type === "shops") {
+      const [rows] = await db.execute(`
+        SELECT s.shop_id, s.shop_name, s.icon_url, s.transaction_sold_count, s.listing_active_count 
+        FROM user_tracked_shops uts 
+        JOIN shops s ON uts.shop_id = s.shop_id 
+        WHERE uts.user_id = ?
+      `, [req.user.id]);
+      results = rows;
+    } else if (target_type === "keywords") {
+      const [rows] = await db.execute(`
+        SELECT k.keyword, k.total_results, k.last_scanned 
+        FROM user_tracked_keywords utk 
+        JOIN keywords k ON utk.keyword = k.keyword 
+        WHERE utk.user_id = ?
+      `, [req.user.id]);
+      results = rows;
+    }
+    res.json(results);
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
+app.get("/history/:target_type", authenticateToken, async (req, res) => {
+  try {
+    const { target_type } = req.params;
+    let results = [];
+    if (target_type === "listings") {
+      const [rows] = await db.execute(`
+        SELECT l.listing_id, l.title, l.price, l.currency_code, l.image_url as image, s.shop_name, 
+        CASE WHEN utl.listing_id IS NOT NULL THEN 1 ELSE 0 END as is_tracked
+        FROM user_history_listings uhl
+        JOIN listings l ON uhl.listing_id = l.listing_id
+        LEFT JOIN shops s ON l.shop_id = s.shop_id 
+        LEFT JOIN user_tracked_listings utl ON utl.listing_id = l.listing_id AND utl.user_id = ?
+        WHERE uhl.user_id = ?
+        ORDER BY uhl.last_viewed DESC LIMIT 500
+      `, [req.user.id, req.user.id]);
+      results = rows.map(r => ({ ...r, is_tracked: !!r.is_tracked }));
+    } else if (target_type === "shops") {
+      const [rows] = await db.execute(`
+        SELECT s.shop_id, s.shop_name, s.icon_url, s.transaction_sold_count, 
+        CASE WHEN uts.shop_id IS NOT NULL THEN 1 ELSE 0 END as is_tracked
+        FROM user_history_shops uhs
+        JOIN shops s ON uhs.shop_id = s.shop_id
+        LEFT JOIN user_tracked_shops uts ON uts.shop_id = s.shop_id AND uts.user_id = ?
+        WHERE uhs.user_id = ?
+        ORDER BY uhs.last_viewed DESC LIMIT 500
+      `, [req.user.id, req.user.id]);
+      results = rows.map(r => ({ ...r, is_tracked: !!r.is_tracked }));
+    } else if (target_type === "keywords") {
+      const [rows] = await db.execute(`
+        SELECT k.keyword, k.total_results, k.last_scanned, 
+        CASE WHEN utk.keyword IS NOT NULL THEN 1 ELSE 0 END as is_tracked
+        FROM user_history_keywords uhk
+        JOIN keywords k ON uhk.keyword = k.keyword
+        LEFT JOIN user_tracked_keywords utk ON utk.keyword = k.keyword AND utk.user_id = ?
+        WHERE uhk.user_id = ?
+        ORDER BY uhk.last_viewed DESC LIMIT 500
+      `, [req.user.id, req.user.id]);
+      results = rows.map(r => ({ ...r, is_tracked: !!r.is_tracked }));
+    }
+    res.json(results);
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
+app.delete("/api/me/shops/:connection_id", authenticateToken, async (req, res) => {
+  try {
+    const [result] = await db.execute("DELETE FROM etsy_connections WHERE id = ? AND user_id = ?", [req.params.connection_id, req.user.id]);
+    if (result.affectedRows === 0) return res.status(404).json({ error: "Not found or not authorized" });
+    res.json({ success: true });
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

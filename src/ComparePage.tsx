@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
+import { useAppContext } from './AppContext';
 
 interface ComparePageProps {
   onListingClick?: (id: string) => void;
@@ -7,6 +8,7 @@ interface ComparePageProps {
 }
 
 const ComparePage: React.FC<ComparePageProps> = ({ onListingClick, onShopClick }) => {
+  const { token } = useAppContext();
   const [type, setType] = useState<'listing' | 'shop'>('listing');
   const [id1, setId1] = useState('');
   const [id2, setId2] = useState('');
@@ -29,8 +31,9 @@ const ComparePage: React.FC<ComparePageProps> = ({ onListingClick, onShopClick }
     setData2(null);
 
     try {
-      const res1 = await fetch(`https://api.podsy.pro/${type}/${id1}?force_refresh=false`);
-      const res2 = await fetch(`https://api.podsy.pro/${type}/${id2}?force_refresh=false`);
+      const headers = { 'Authorization': `Bearer ${token}` };
+      const res1 = await fetch(`https://api.podsy.pro/${type}/${id1}?force_refresh=false`, { headers });
+      const res2 = await fetch(`https://api.podsy.pro/${type}/${id2}?force_refresh=false`, { headers });
       
       const json1 = await res1.json();
       const json2 = await res2.json();

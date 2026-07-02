@@ -93,15 +93,15 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   const fetchFavorites = useCallback((type: string) => {
-    fetch(`https://api.podsy.pro/favorites/${type}`)
-      .then(r => r.json())
+    fetch(`https://api.podsy.pro/favorites/${type}`, { headers: { 'Authorization': `Bearer ${token}` } })
+      .then(res => res.ok ? res.json() : [])
       .then(data => setFavData(data))
       .catch(err => console.error("Favoriler çekilemedi:", err));
   }, []);
 
   const fetchHistory = useCallback((type: string) => {
-    fetch(`https://api.podsy.pro/history/${type}`)
-      .then(r => r.json())
+    fetch(`https://api.podsy.pro/history/${type}`, { headers: { 'Authorization': `Bearer ${token}` } })
+      .then(res => res.ok ? res.json() : [])
       .then(data => setHistoryData(data))
       .catch(err => console.error("Geçmiş çekilemedi:", err));
   }, []);

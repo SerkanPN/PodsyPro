@@ -18,12 +18,13 @@ const copyToClipboard = (text: string) => {
 
 interface ListingDetailProps {
   listingId: string;
+  onBack: () => void;
   onShopClick: (shopId: string) => void;
   onTagClick: (tag: string) => void;
-  onBack: () => void;
 }
 
-const ListingDetail = ({ listingId, onShopClick, onTagClick, onBack }: ListingDetailProps) => {
+export const ListingDetail: React.FC<ListingDetailProps> = ({ listingId, onBack, onShopClick, onTagClick }) => {
+  const { token, toggleFollow, HeartIcon } = useAppContext();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +33,9 @@ const ListingDetail = ({ listingId, onShopClick, onTagClick, onBack }: ListingDe
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`https://api.podsy.pro/listing/${id}?force_refresh=${forceRefresh}`);
+      const response = await fetch(`https://api.podsy.pro/listing/${id}?force_refresh=${forceRefresh}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       if (!response.ok) throw new Error("Listing verisi alınamadı");
       
       const jsonData = await response.json();
