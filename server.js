@@ -822,6 +822,6 @@ app.delete("/api/me/shops/:connection_id", authenticateToken, async (req, res) =
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, "127.0.0.1", () => {
+  console.log(`Server is running on port ${PORT} at 127.0.0.1`);
 });
