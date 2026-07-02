@@ -65,7 +65,7 @@ const App = () => {
       .then(res => res.json())
       .then(data => {
         if (data.access_token) {
-          localStorage.setItem('podsy_token', data.access_token);
+          localStorage.setItem('token', data.access_token);
           alert("Etsy successfully connected and logged in!");
           window.location.href = "/?view=profile";
         } else {
